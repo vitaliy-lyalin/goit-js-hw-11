@@ -1,8 +1,7 @@
 import PixabayApiService from './js/PixabayApiService';
 import LoadMoreBtn from './js/LoadMoreBtn';
+import { lightbox } from './js/lightbox';
 
-import simpleLightbox from 'simplelightbox';
-import 'simplelightbox/dist/simple-lightbox.min.css';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 const form = document.querySelector('#search-form');
@@ -26,6 +25,7 @@ function onSearch(event) {
   pixabayApiService.resetPage();
 
   clearImagesFromGallery();
+
   loadMoreBtn.show();
   totalImage = 0;
 
@@ -72,11 +72,7 @@ async function fetchImages() {
     );
 
     appendImagesToGallery(markup);
-
-    new SimpleLightbox('.gallery a', {
-      captionDelay: 250,
-      close: true,
-    }).refresh();
+    lightbox.refresh();
 
     loadMoreBtn.enable();
   } catch (error) {
